@@ -8,18 +8,18 @@ An IoT sound level meter designed to measure sound at specific locations and the
 ## Development environment: 
 - Visual Studio Code
 
+## Development Leanguage:
+- Python
+
 ## Visual Studio Code extensions:
-- C/C++
-- Code Runner
-- C/C++ Extension Pack
-- C/C++ Snippets
-- C/C++ Advanced Lint
-- C/C++ Themes
-- Prettier - Code Formatter
-- C++ TestMate
+
 ## Hardware environment:
+
  - [Raspberry Pi 2 W](https://kamami.pl/15656-raspberry-pi-zero-2-w)
  - [Microphone MEMS MEMS INMP441](https://kamami.pl/moduly-z-mikrofonami-i-detektory-dzwieku/587534-modul-z-mikrofonem-mems-inmp441.html)
  - [GPRS GSM SIM800L](https://kamami.pl/moduly-gsmgprs/580297-zestaw-z-modulem-gprs-gsm-sim800l-modsim800l.html)
+ 
 ## Cloud:
 
+## VM Raspberry OS:
+- [ISO](https://www.raspberrypi.com/software/raspberry-pi-desktop)
