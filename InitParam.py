@@ -1,5 +1,6 @@
 import pyaudio
 import numpy as np
+import AudioStream
 
 
 class InitParam():
@@ -9,3 +10,8 @@ class InitParam():
     buffer_format  = np.int16 # 16-bit for buffer
     CHANNEL        = 1 # only read 1 channel
     DEV_INDEX      = 0 # index of sound device
+    
+    
+if __name__ == '__main__':
+    AudioStream.AudioStream()
+    

@@ -3,15 +3,16 @@ import AudioStream
 import InitParam
 import numpy as np
 import AudioAnalyze
+from math import log10
 
 
 class AudioAnalyze(object):
     def __init__(self,data_vec):
         self.param = InitParam.InitParam()
-        self.audioloopp(data_vec)
-        freq_ii,fft_ii= self.fft(data_vec) # calculate fft for chunk
-        print("chunk freq data: "+ str(freq_ii)+", chunk fft data: "+str(fft_ii)+"RMS dB: "+str(self.audioloopp(data_vec)))
-   
+        db = 20 * log10(self.audioloopp(data_vec))
+        #freq_ii,fft_ii= self.fft(data_vec) # calculate fft for chunk
+        #print("chunk freq data: "+ str(freq_ii)+", chunk fft data: "+str(fft_ii)+"RMS dB: "+str(self.audioloopp(data_vec)))
+        print(db)
    
    
     #
