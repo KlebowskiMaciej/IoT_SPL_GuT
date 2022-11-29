@@ -4,7 +4,7 @@ import AudioStream
 
 
 class InitParam():
-    CHUNK          = 4096  # frames to keep in buffer between reads
+    CHUNK          = 1024  # frames to keep in buffer between reads
     SAMP_RATE      = 44100 # sample rate [Hz]
     pyaudio_format = pyaudio.paInt16 # 16-bit device
     buffer_format  = np.int16 # 16-bit for buffer

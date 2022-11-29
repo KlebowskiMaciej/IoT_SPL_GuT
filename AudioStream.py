@@ -1,14 +1,8 @@
 import pyaudio
-import matplotlib.pyplot as plt
 import numpy as np
-import time,wave,datetime,os,csv
-import struct
+import time
 import InitParam
 import audioop
-import AudioStream
-import InitParam
-import numpy as np
-import AudioAnalyze
 from math import log10
 from threading import Timer
 
@@ -49,7 +43,8 @@ class AudioStream(object):
             else:
                 #dataGraber.append(self.audioProcess(stream_data))# analysis section
                 elapsed_time=current_time-start_time
-                print(self.audioProcess(stream_data))
+                print(stream_data) # Odkomentowanie powoduje wydruk tablicy streama
+                print(self.audioProcess(stream_data)) # przeliczony wynik w dB
             
          #   if elapsed_time > seconds:
            #     start_time=time.time()
@@ -99,6 +94,8 @@ class AudioStream(object):
         np.sqrt((d*d).sum()/(1.*len(d)))
         d = np.frombuffer(data, np.int16).astype(np.float)
         return(np.sqrt((d*d).sum()/len(d)))
+    
+    
     
     def audioProcess(self,data_vec):
         db = 20 * log10(self.audioloopp(data_vec))
