@@ -4,7 +4,7 @@ import time
 import audioop
 import datetime
 import GoogleSheets
-
+import threading
 
 class Recorder(object):
 
@@ -86,16 +86,20 @@ class Recorder(object):
         global_data.append(value)
 
         if len(global_data)>=10:
-            now = datetime.datetime.now()
+           now = datetime.datetime.now()
+            google = GoogleSheets.GoogleWrite()
             time = ""+str(now.hour)+":"+str(now.minute)+":"+str(now.second)
             value = max(global_data)
             
+            global_data.clear()
+            
+            task_google = threading.Thread(target=google.send,args=(value,time))
+            task_azure = threading.Thread(target=print,args=("Azure send"))
             #Send To Azure
+            task_azure.start()
             
             #Send To Google Sheets            
-            google = GoogleSheets.GoogleWrite()
-            google.send(val=value,Times=time)
-            global_data.clear()
+            task_google.start()
 
 
 
