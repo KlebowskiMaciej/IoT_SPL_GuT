@@ -2,6 +2,8 @@ import pyaudio
 import numpy as np
 import time
 import audioop
+import datetime
+import GoogleSheets
 
 
 class Recorder(object):
@@ -24,20 +26,14 @@ class Recorder(object):
     DEV_INDEX = 0  # index of sound device
     PAUSE = False
     FRAME_COUNT = 0
-    SECONDS = 5
+    SECONDS = 30
     SIZE_SEND_DATA = 10
 
     def __init__(self):
 
         self.analyzer()
 
-    def send(self):
-        mean = avg = sum(local_data) / len(local_data)
-        global_data.append(mean)
-
-        if len(global_data)>10:
-            #SEND TO CLOUD
-            global_data.clear()
+   
 
     def analyzer(self):
         self.set()
@@ -56,7 +52,6 @@ class Recorder(object):
             else:
                 elapsed_time = current_time - start_time
                 local_data.append(self.process(stream_data))
-
                 if elapsed_time > self.SECONDS:
                     start_time = time.time()
                     self.send()
@@ -86,3 +81,23 @@ class Recorder(object):
         self.audio.terminate()
 
 
+    def send(self):
+        value = max(local_data)
+        global_data.append(value)
+
+        if len(global_data)>=10:
+            now = datetime.datetime.now()
+            time = ""+str(now.hour)+":"+str(now.minute)+":"+str(now.second)
+            value = max(global_data)
+            
+            #Send To Azure
+            
+            #Send To Google Sheets            
+            google = GoogleSheets.GoogleWrite()
+            google.send(val=value,Times=time)
+            global_data.clear()
+
+
+
+if __name__ == '__main__':
+    Recorder()
