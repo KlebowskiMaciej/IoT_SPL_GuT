@@ -9,6 +9,8 @@ from google.oauth2.credentials import Credentials
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 SAMPLE_SPREADSHEET_ID = '1Zp1LpEPU9mKX3K8ayC0PYN-GMqW9NP41S88rpUiwMv0'
 SAMPLE_RANGE_NAME = 'A:E'
+path_token = 'token.json'
+path_credentials ='credentials.json'
 
 
 class GoogleWrite:
@@ -16,28 +18,25 @@ class GoogleWrite:
 	def send(self,val,Times):
 		creds = None
 		
-		#Maybe could cut.. ToDo
-		if os.path.exists('token.json'):
-			creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+		
+		if os.path.exists(path_token):
+			creds = Credentials.from_authorized_user_file(path_token, SCOPES)
 		if not creds or not creds.valid:
 			if creds and creds.expired and creds.refresh_token:
 				creds.refresh(Request())
 			else:
-				flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+				flow = InstalledAppFlow.from_client_secrets_file(path_credentials, SCOPES)
 				creds = flow.run_local_server(port=0)
-			# Dane uwierzytelniające zostają zapisane w pliku ‘token.json’
-			with open('token.json', 'w') as token:
+			with open(path_token, 'w') as token:
 				token.write(creds.to_json())
 
 		service = build('sheets', 'v4', credentials=creds)
-
-		# Uruchomienie usługi dostępu do arkusza
 		sheet = service.spreadsheets()
 		result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME).execute()
 		values = result.get('values', [])
 		
 		liczby = (
-      			( str(val)),
+      			(str(val)),
          		(str(Times)))
 
 		if not values:
@@ -54,5 +53,3 @@ class GoogleWrite:
 		request = service.spreadsheets().values().append(spreadsheetId=SAMPLE_SPREADSHEET_ID, range="A:B", valueInputOption='USER_ENTERED', body=bodyexample)
 		response = request.execute()
 		print(response)
-
-
