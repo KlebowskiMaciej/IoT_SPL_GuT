@@ -50,7 +50,6 @@ class GoogleWrite:
 						"values": [ liczby ]
 		}
 
-		request = service.spreadsheets().values().append(
-			spreadsheetId=SAMPLE_SPREADSHEET_ID, range="A:B", valueInputOption='USER_ENTERED', body=bodyexample)
+		request = service.spreadsheets().values().append(spreadsheetId=SAMPLE_SPREADSHEET_ID, range="A:B", valueInputOption='USER_ENTERED', body=bodyexample)
 		response = request.execute()
 		print(response)
